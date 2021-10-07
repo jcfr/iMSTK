@@ -9,23 +9,25 @@ if(NOT DEFINED g3log_INSTALL_DIR)
   # Set g3log_SOURCE_DIR and g3log_BINARY_DIR
   imstk_define_external_dirs( g3log )
 
+  set(g3log_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
+
   if(MSVC)
     set(g3log_built_library ${CMAKE_COMMAND} -E copy
                             ${g3log_BINARY_DIR}/$(Configuration)/g3logger$<$<CONFIG:Debug>:d>.lib
-                            ${CMAKE_INSTALL_PREFIX}/lib/)
+                            ${g3log_INSTALL_DIR}/lib/)
     set(g3log_built_shared)
   else()
     set(g3log_built_library ${CMAKE_COMMAND} -E copy
                             ${g3log_BINARY_DIR}/libg3logger.a
-                            ${CMAKE_INSTALL_PREFIX}/lib/)
+                            ${g3log_INSTALL_DIR}/lib/)
     set(g3log_built_shared ${CMAKE_COMMAND} -E copy
                            ${g3log_BINARY_DIR}/libg3logger.so
-                           ${CMAKE_INSTALL_PREFIX}/lib/)
+                           ${g3log_INSTALL_DIR}/lib/)
   endif()
 
   set(g3log_INSTALL_COMMAND
     INSTALL_COMMAND
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${g3log_SOURCE_DIR}/src/g3log ${CMAKE_INSTALL_PREFIX}/include/g3log
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${g3log_SOURCE_DIR}/src/g3log ${g3log_INSTALL_DIR}/include/g3log
       COMMAND ${g3log_built_library}
       COMMAND ${g3log_built_shared}
     )
