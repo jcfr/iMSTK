@@ -5,7 +5,7 @@ include(imstkFind)
 
 set(_sub_dir "")
 if(NOT DEFINED OpenVR_ROOT_DIR)
-  set(_sub_dir "openvr")
+  set(_sub_dir "OpenVR")
 endif()
 
 imstk_find_header(OpenVR openvr.h ${_sub_dir})
