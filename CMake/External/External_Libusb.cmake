@@ -1,7 +1,5 @@
 if(NOT WIN32)
-  message(WARNING "System not supported. Only Windows is supported for External_Libusb.cmake.")
-  message(WARNING "Libusb-1.0 should already be installed on your system.")
-  return()
+  set(USE_SYSTEM_Libusb TRUE)  # Variable name expected by imstkAddExternalProject.cmake
 endif()
 
 include(imstkAddExternalProject)
@@ -58,6 +56,14 @@ else()
     INSTALL_COMMAND
       COMMAND ${SKIP_STEP_COMMAND}
     )
+endif()
+
+if(USE_SYSTEM_Libusb)
+  unset(Libusb_INCLUDE_DIR CACHE)
+  unset(Libusb_LIBRARY_libusb-1.0-RELEASE CACHE)
+  unset(Libusb_LIBRARY_libusb-1.0-DEBUG CACHE)
+
+  find_package(Libusb REQUIRED)
 endif()
 
 #-----------------------------------------------------------------------------
