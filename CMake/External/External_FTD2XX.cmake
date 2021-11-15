@@ -6,10 +6,10 @@ endif()
 
 include(imstkAddExternalProject)
 
-# Set FTD2XX_SOURCE_DIR
+# Set FTD2XX_SOURCE_DIR and FTD2XX_PREFIX
 imstk_define_external_dirs( FTD2XX )
 
-# Directories and filenames specific to the OpenVR archive layout
+# Directories and filenames specific to the FTD2XX archive layout
 set(FTD2XX_DLL_DIR "i386")
 set(FTD2XX_DLL_NAME "ftd2xx.dll")
 set(FTD2XX_LIB_DIR "i386")
