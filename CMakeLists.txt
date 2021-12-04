@@ -178,8 +178,12 @@ if(${PROJECT_NAME}_SUPERBUILD)
     imstk_define_dependency(PThreads)
     imstk_define_dependency(Libusb) #for VRPN
     imstk_define_dependency(FTD2XX) #for LibNiFalcon
-    imstk_define_dependency(SFML)
-    set(${PROJECT_NAME}_AUDIO_ENABLED "Windows OS detected: Building iMSTK with AUDIO support." ON)
+    if(NOT DEFINED ${PROJECT_NAME}_AUDIO_ENABLED)
+      set(${PROJECT_NAME}_AUDIO_ENABLED ON)
+    endif()
+    if(${PROJECT_NAME}_AUDIO_ENABLED)
+      imstk_define_dependency(SFML)
+    endif()
   else()
     message("Warning: Building iMSTK WITHOUT audio support!")
     set(${PROJECT_NAME}_AUDIO_ENABLED OFF)
@@ -256,7 +260,7 @@ if (${PROJECT_NAME}_USE_PHYSX)
 endif()
 
 # SFML
-if(APPLE OR LINUX)
+if(NOT iMSTK_AUDIO_ENABLED)
   remove_definitions( -DiMSTK_AUDIO_ENABLED )
 else()
   find_package( SFML REQUIRED )
